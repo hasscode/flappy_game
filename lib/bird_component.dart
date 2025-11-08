@@ -1,6 +1,9 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/events.dart'; // مهمة لـ TapCallbacks
+import 'package:flame/events.dart';
+import 'package:flame_game/core/score_shared_preference.dart';
+
+import 'flappy_game.dart'; // مهمة لـ TapCallbacks
 
 class BirdComponent extends SpriteComponent
     with CollisionCallbacks, HasGameRef {
@@ -10,13 +13,15 @@ class BirdComponent extends SpriteComponent
 
   @override
   Future<void> onLoad() async {
+
     // تحميل صورة الطائر
     sprite = await gameRef.loadSprite('bird.png');
     size = Vector2(60, 45);
     position = Vector2(gameRef.size.x / 4, gameRef.size.y / 2);
 
     // إضافة hitbox للتصادم
-    add(RectangleHitbox());
+    add(CircleHitbox(radius: size.x / 3));
+
 
   }
 
@@ -47,6 +52,9 @@ class BirdComponent extends SpriteComponent
     super.onCollisionStart(intersectionPoints, other);
 
     if (other is SpriteComponent) {
+      final myGame = gameRef as MyFlappyGame; // ✅ نحوله لنوع لعبتك
+      gameRef.pauseEngine();
+       ScoreManager.saveBestScore(myGame.score);
       gameRef.overlays.add('GameOver');
 
       position = Vector2(gameRef.size.x / 4, gameRef.size.y / 2);

@@ -18,6 +18,7 @@ class MyFlappyGame extends FlameGame with HasCollisionDetection, TapDetector {
   int score = 0;
   late TextComponent scoreText;
 
+
   @override
   Future<void> onLoad() async {
     await add(BackgroundComponent());
@@ -48,7 +49,10 @@ class MyFlappyGame extends FlameGame with HasCollisionDetection, TapDetector {
     pipeSpawnTimer += dt;
     if (pipeSpawnTimer > pipeSpawnInterval) {
       pipeSpawnTimer = 0;
-      add(PipeComponent());
+      final newPipe = PipeComponent();
+      newPipe.speed = 150 + (score ~/ 5) * 10;
+      add(newPipe);
+      print('add = ${newPipe.speed}');
     }
 
     // 🧮 حساب النقاط لما الطائر يعدي الأنبوب
@@ -58,6 +62,7 @@ class MyFlappyGame extends FlameGame with HasCollisionDetection, TapDetector {
         score++;
         scoreText.text = 'Score: $score';
       }
+
     }
   }
 

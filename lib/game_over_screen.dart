@@ -81,8 +81,8 @@ class GameOverOverlay extends StatelessWidget {
                         // ✅ رجّع كل حاجة للوضع الأول
                         game.score = 0;
                         game.scoreText.text = 'Score: 0';
-                        game.bird.position = Vector2(game.size.x / 4, game.size.y / 2);
-                        game.bird.velocity = 0;
+                        game.character.position = Vector2(game.size.x / 4, game.size.y / 2);
+                        game.character.velocity = 0;
 
                         // 🧹 امسح كل الأنابيب القديمة
                         game.children.whereType<PipeComponent>().forEach((pipe) {

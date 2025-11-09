@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/collisions.dart';
+import 'package:flame_game/core/styles/app_images.dart';
 
 class PipeComponent extends PositionComponent with HasGameRef, CollisionCallbacks {
   late SpriteComponent topPipe;
@@ -19,7 +20,7 @@ class PipeComponent extends PositionComponent with HasGameRef, CollisionCallback
 
 
     topPipe = SpriteComponent()
-      ..sprite = await gameRef.loadSprite('pipe-up.png')
+      ..sprite = await gameRef.loadSprite(AppImages.pipeUpComponentImage)
       ..size = Vector2(80, 400)
       ..position = Vector2(gameRef.size.x, centerY - gap / 2 - 400)
       ..anchor = Anchor.topLeft
@@ -27,7 +28,7 @@ class PipeComponent extends PositionComponent with HasGameRef, CollisionCallback
 
     // ✅ الأنبوب السفلي (يطلع من تحت)
     bottomPipe = SpriteComponent()
-      ..sprite = await gameRef.loadSprite('pipe-down.png')
+      ..sprite = await gameRef.loadSprite(AppImages.pipeDownComponentImage)
       ..size = Vector2(80, 400)
       ..position = Vector2(gameRef.size.x, centerY + gap / 2)
       ..anchor = Anchor.topLeft

@@ -2,11 +2,14 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame_game/core/score_shared_preference.dart';
+import 'package:flame_game/core/styles/app_images.dart';
 
 import 'flappy_game.dart'; // مهمة لـ TapCallbacks
 
-class BirdComponent extends SpriteComponent
+class CharacterComponent extends SpriteComponent
     with CollisionCallbacks, HasGameRef {
+  CharacterComponent({required this.characterImg});
+  final String characterImg;
   double gravity = 600;
   double jumpForce = -300;
   double velocity = 0;
@@ -15,7 +18,7 @@ class BirdComponent extends SpriteComponent
   Future<void> onLoad() async {
 
     // تحميل صورة الطائر
-    sprite = await gameRef.loadSprite('bird.png');
+    sprite = await gameRef.loadSprite(characterImg);
     size = Vector2(60, 45);
     position = Vector2(gameRef.size.x / 4, gameRef.size.y / 2);
 

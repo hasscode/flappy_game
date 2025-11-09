@@ -8,11 +8,14 @@ import 'package:flutter/material.dart';
 import 'background_component.dart';
 import 'game_over_screen.dart';
 import 'ground_component.dart';
-import 'bird_component.dart';
+import 'character_component.dart';
 import 'pipe_component.dart';
 
 class MyFlappyGame extends FlameGame with HasCollisionDetection, TapDetector {
-  late BirdComponent bird;
+
+  MyFlappyGame({required this.characterImg});
+  final String characterImg;
+  late CharacterComponent character;
   double pipeSpawnTimer = 0;
   double pipeSpawnInterval = 2.5;
   int score = 0;
@@ -24,8 +27,8 @@ class MyFlappyGame extends FlameGame with HasCollisionDetection, TapDetector {
     await add(BackgroundComponent());
     await add(GroundComponent());
 
-    bird = BirdComponent();
-    await add(bird);
+    character = CharacterComponent(characterImg: characterImg);
+    await add(character);
 
     scoreText = TextComponent(
       text: 'Score: 0',
@@ -57,7 +60,7 @@ class MyFlappyGame extends FlameGame with HasCollisionDetection, TapDetector {
 
     // 🧮 حساب النقاط لما الطائر يعدي الأنبوب
     for (var comp in children.whereType<PipeComponent>()) {
-      if (!comp.isPassed && bird.x > comp.bottomPipe.x + comp.bottomPipe.width) {
+      if (!comp.isPassed && character.x > comp.bottomPipe.x + comp.bottomPipe.width) {
         comp.isPassed = true;
         score++;
         scoreText.text = 'Score: $score';
@@ -68,7 +71,7 @@ class MyFlappyGame extends FlameGame with HasCollisionDetection, TapDetector {
 
   @override
   void onTap() {
-    bird.velocity = bird.jumpForce;
+    character.velocity = character.jumpForce;
   }
 
 

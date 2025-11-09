@@ -1,4 +1,6 @@
 import 'package:flame/game.dart';
+import 'package:flame_game/choose_your_character_screen.dart';
+import 'package:flame_game/core/styles/app_images.dart';
 import 'package:flame_game/flappy_game.dart';
 import 'package:flutter/material.dart';
 
@@ -14,14 +16,14 @@ class StartScreen extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/background.jpg'),fit: BoxFit.cover)
+          image: DecorationImage(image: AssetImage(AppImages.backgroundImage),fit: BoxFit.cover)
 
         ),
       child: Column(
 children: [
-  SizedBox(height: 150,),
-  Text('Flappy Game Clone',style: TextStyle(fontFamily: 'editundo', fontWeight: FontWeight.w900,fontSize: 37,color: Colors.white),),
-  SizedBox(height: 50,),
+  SizedBox(height: 130,),
+  Text('Flappy Game',style: TextStyle(fontFamily: 'editundo', fontWeight: FontWeight.w900,fontSize: 50,color: Colors.white),),
+  SizedBox(height: 20,),
   FutureBuilder<int>(
     future: ScoreManager.getBestScore(),
     builder: (context, snapshot) {
@@ -31,12 +33,13 @@ children: [
         final bestScore = snapshot.data ?? 0;
         return Text(
           'Best Score: $bestScore',
-          style: const TextStyle(fontFamily: 'editundo', fontWeight: FontWeight.w900,fontSize: 22,color: Colors.white),
+          style: const TextStyle(fontFamily: 'editundo', fontWeight: FontWeight.w900,fontSize: 25,color: Colors.white),
         );
       }
     },
   ),
-  SizedBox(height: 50,),
+  SizedBox(height: 80,),
+
   Container(
 decoration: BoxDecoration(
   borderRadius: BorderRadius.circular(15),
@@ -47,10 +50,7 @@ decoration: BoxDecoration(
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => GameWidget(
-                game: MyFlappyGame(),
-                overlayBuilderMap: MyFlappyGame.overlaysMap,
-              ),
+              builder: (context) => ChooseYourCharacterScreen()
             ),
           );
         },
